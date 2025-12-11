@@ -46,7 +46,7 @@
 ```
 
 ### Быстрый запуск:
-1. `https://github.com/KirMilo/videos_stats_tg_bot`
+1. git clone `https://github.com/KirMilo/videos_stats_tg_bot`
 2. Создать файл `.env.prod` в корне проекта и заполнить по примеру `.env.example`
 3. `docker compose up -d`
 
