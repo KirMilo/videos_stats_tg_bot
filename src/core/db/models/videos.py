@@ -14,10 +14,10 @@ class Video(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID, primary_key=True, default=uuid.uuid4)
     creator_id: Mapped[uuid.UUID] = mapped_column(UUID, nullable=False)
     video_created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
-    views_count: Mapped[int]
-    likes_count: Mapped[int]
-    comments_count: Mapped[int]
-    reports_count: Mapped[int]
+    views_count: Mapped[int] = mapped_column(default=0)
+    likes_count: Mapped[int] = mapped_column(default=0)
+    comments_count: Mapped[int] = mapped_column(default=0)
+    reports_count: Mapped[int] = mapped_column(default=0)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

@@ -11,12 +11,14 @@ if TYPE_CHECKING:
 
 
 class VideoSnapshot(Base):
+    __tablename__ = "video_snapshots"
+
     id: Mapped[uuid.UUID] = mapped_column(UUID, primary_key=True, default=uuid.uuid4)
     video_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("videos.id"))
-    views_count: Mapped[int]
-    likes_count: Mapped[int]
-    comments_count: Mapped[int]
-    reports_count: Mapped[int]
+    views_count: Mapped[int] = mapped_column(Integer, default=0)
+    likes_count: Mapped[int] = mapped_column(Integer, default=0)
+    comments_count: Mapped[int] = mapped_column(Integer, default=0)
+    reports_count: Mapped[int] = mapped_column(Integer, default=0)
 
     delta_views_count: Mapped[int] = mapped_column(Integer, default=0)
     delta_likes_count: Mapped[int] = mapped_column(Integer, default=0)

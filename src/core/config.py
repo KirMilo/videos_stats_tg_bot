@@ -43,8 +43,8 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(case_sensitive=False, env_nested_delimiter="__")
 
     db: DbSettings
-    tg: TgSettings
-    llm: LLMSettings
+    tg: TgSettings = TgSettings()
+    llm: LLMSettings = LLMSettings()
 
 
 settings = Settings()  # NOQA
