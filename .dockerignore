@@ -201,3 +201,6 @@ videos.json
 .python-version
 README.md
 tasks.md
+Dockerfile
+docker-compose.yaml
+
