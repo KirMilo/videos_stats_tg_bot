@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres-db
+    environment:
+      - POSTGRES_USER=${DB__USER}
+      - POSTGRES_PASSWORD=${DB__PASSWORD}
+      - POSTGRES_DB=${DB__NAME}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - backend-network
+    ports:
+      - "6432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "psql -U ${DB__USER} -d ${DB__NAME} -c 'SELECT 1' || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+  migrations:
+    container_name: migrations
+    build:
+      context: .
+    env_file: .env
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      - postgres
+
+  app:
+    container_name: tg-bot
+    build:
+      context: .
+    depends_on:
+      - postgres
+      - migrations
+    env_file: .env
+    command: ["python", "./src/main.py"]
+    networks:
+      - backend-network
+
+volumes:
+  postgres-data:
+
+networks:
+  backend-network:
+    driver: bridge
