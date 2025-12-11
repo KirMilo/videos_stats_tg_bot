@@ -29,12 +29,12 @@ async def get_raw_sql(question: str) -> str | None:
     return None
 
 
-async def get_answer(question: str):
+async def get_answer(question: str) -> str:
     raw_sql = await get_raw_sql(question)
     if raw_sql and raw_sql != "null":
         async with async_session_maker() as session:
             response = await session.execute(text(raw_sql))
-            return response.scalar()
+            return str(response.scalar())
     else:
         return ("Не смог сгенерировать ответ по вашему запросу,"
                 " попробуйте задать вопрос иначе или попробуйте позже...")

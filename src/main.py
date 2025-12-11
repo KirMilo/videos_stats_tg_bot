@@ -19,7 +19,7 @@ async def start(message: types.Message):
 @dp.message()
 async def chat_handler(message: Message):
     answer = await get_answer(message.text)
-    await message.answer(str(answer))
+    await message.answer(answer)
 
 
 async def main():
