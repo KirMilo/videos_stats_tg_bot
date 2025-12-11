@@ -1,8 +1,7 @@
-from pydantic import PostgresDsn, field_validator, BaseModel
+from pydantic import PostgresDsn, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from dotenv import load_dotenv
-from os import environ
 
 load_dotenv()
 
@@ -31,20 +30,23 @@ class DbSettings(BaseSettings):
         )
 
 
-class TgSettings(BaseModel):
-    pass
+class TgSettings(BaseSettings):
+    token: str
 
 
-class LLMSettings(BaseModel):
-    pass
+class LLMSettings(BaseSettings):
+    base_url: str
+    model: str
+    key: str
+    attempts_count: int
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(case_sensitive=False, env_nested_delimiter="__")
 
     db: DbSettings
-    tg: TgSettings = TgSettings()
-    llm: LLMSettings = LLMSettings()
+    tg: TgSettings
+    llm: LLMSettings
 
 
 settings = Settings()  # NOQA
