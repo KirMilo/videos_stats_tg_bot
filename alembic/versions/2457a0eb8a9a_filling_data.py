@@ -75,3 +75,4 @@ def upgrade() -> None:
 def downgrade() -> None:
     """Downgrade schema."""
     op.execute("TRUNCATE TABLE videos CASCADE")
+    op.execute("TRUNCATE TABLE video_snapshots CASCADE")
